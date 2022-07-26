@@ -1,4 +1,4 @@
-import { Home } from './containers/home/Home'
+import { Home } from './containers/Home/Home'
 
 function App() {
   return <Home />
