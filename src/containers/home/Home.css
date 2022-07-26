@@ -2,14 +2,13 @@
   display: grid;
   align-items: center;
   width: 100vw;
-  height: 100vh;
 }
 
 .container {
   display: grid;
   width: 100%;
-  height: 80%;
-  padding: 0 60px 0 20px;
+  height: 100vh;
+  padding: 60px 60px 0 20px;
   grid-template-columns: 0.2fr 0.8fr;
   grid-template-rows: 0.1fr 0.9fr;
   grid-template-areas:
@@ -28,4 +27,6 @@
 
 .articles {
   grid-area: articles;
+  overflow-y: auto;
+  height: 90%;
 }

@@ -3,8 +3,11 @@ import './Home.css'
 import SortIcon from '@mui/icons-material/Sort'
 import { CheckboxLabels } from '../../components/CheckBoxLabels/CheckBoxLabels'
 import { Articles } from '../../components/Articles/Articles'
+import { useArticlesContext } from '../../contexts/ArticlesContext'
 
 export const Home = () => {
+  const { articles } = useArticlesContext()
+
   return (
     <main className='home'>
       <div className='container'>
@@ -21,7 +24,7 @@ export const Home = () => {
         </div>
 
         <div className='articles'>
-          <Articles />
+          <Articles articles={articles} />
         </div>
       </div>
     </main>

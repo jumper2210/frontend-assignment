@@ -1,0 +1,24 @@
+.article {
+  display: flex;
+  gap: 30px;
+  padding-bottom: 40px;
+  padding-right: 15px;
+}
+
+.article-img {
+  width: 30%;
+  height: 100%;
+}
+
+.description-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 70%;
+}
+
+.title-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
