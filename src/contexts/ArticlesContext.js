@@ -17,22 +17,13 @@ export const ArticlesProvider = ({ children }) => {
   const [articlesOfSport, setArticlesOfSport] = useState()
   const [articlesOfFashion, setArticlesOfFashion] = useState()
 
-  const removeArticle = useCallback((type) => {
-    if (type === 'Fashion') {
-      setArticlesOfFashion([])
-    } else if (type === 'Sports') {
-      setArticlesOfSport([])
-    }
-  }, [])
-
   const setArticlesContent = (data) => {
     const shouldGetSportContent = data.some(
       (article) => article.category === 'sport'
     )
 
-    if (shouldGetSportContent && !articlesOfSport) setArticlesOfSport(data)
-    else if (!shouldGetSportContent && !articlesOfFashion)
-      setArticlesOfFashion(data)
+    if (shouldGetSportContent) setArticlesOfSport(data)
+    else if (!shouldGetSportContent) setArticlesOfFashion(data)
   }
 
   const fetchArticlesOfSport = useCallback(async () => {
@@ -61,7 +52,6 @@ export const ArticlesProvider = ({ children }) => {
       articlesOfFashion,
       fetchArticlesOfFashion,
       fetchArticlesOfSport,
-      removeArticle,
       setArticlesOfSport,
       setArticlesOfFashion,
     }),
@@ -70,12 +60,11 @@ export const ArticlesProvider = ({ children }) => {
       articlesOfFashion,
       fetchArticlesOfFashion,
       fetchArticlesOfSport,
-      removeArticle,
       setArticlesOfSport,
       setArticlesOfFashion,
     ]
   )
-
+  console.log(value)
   return (
     <ArticlesContext.Provider value={value}>
       {children}
