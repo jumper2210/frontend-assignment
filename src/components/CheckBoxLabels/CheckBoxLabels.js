@@ -6,7 +6,7 @@ import { useArticlesContext } from '../../contexts/ArticlesContext'
 import { articleTypes } from '../../helpers/ArticleTypes'
 
 export const CheckboxLabels = () => {
-  const { fetchArticles, removeArticle } = useArticlesContext()
+  const { fetchArticles, removeArticles } = useArticlesContext()
 
   const { Fashion, Sports } = articleTypes
 
@@ -19,9 +19,9 @@ export const CheckboxLabels = () => {
     }
     // delete picked articles if user checked checkbox
     if (isChecked === false && name === Sports) {
-      removeArticle(name)
+      removeArticles(name)
     } else if (isChecked === false && name === Fashion) {
-      removeArticle(name)
+      removeArticles(name)
     }
   }
 
