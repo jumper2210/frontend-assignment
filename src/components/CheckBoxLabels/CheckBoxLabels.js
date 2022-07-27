@@ -28,7 +28,7 @@ export const CheckboxLabels = () => {
   }
 
   return (
-    <FormGroup>
+    <FormGroup sx={{ display: 'flex', flexDirection: 'row' }}>
       <FormControlLabel
         control={
           <Checkbox

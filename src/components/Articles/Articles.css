@@ -22,3 +22,16 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+.preamble {
+  width: '90%';
+  max-height: '90%';
+}
+@media (max-width: 1130px) {
+  .preamble {
+    display: none;
+  }
+  .title-block {
+    flex-direction: column;
+  }
+}

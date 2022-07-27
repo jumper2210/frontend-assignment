@@ -9,7 +9,7 @@
   width: 100%;
   height: 100vh;
   padding: 60px 60px 0 20px;
-  grid-template-columns: 0.2fr 0.8fr;
+  grid-template-columns: 0.1fr 0.9fr;
   grid-template-rows: 0.1fr 0.9fr;
   grid-template-areas:
     'sort-item sort-item'
@@ -17,8 +17,11 @@
 }
 
 .sort-item {
-  grid-area: sort-item;
+  display: flex;
+  justify-content: flex-end;
   justify-self: end;
+  grid-area: sort-item;
+  width: 100%;
 }
 
 .data-sources {
@@ -29,4 +32,19 @@
   grid-area: articles;
   overflow-y: auto;
   height: 90%;
+}
+
+@media (max-width: 1130px) {
+  .container {
+    grid-template-rows: 1fr;
+    grid-template-columns: 0.8fr 0.2fr;
+    padding: 15px 10px 0 10px;
+    grid-template-areas:
+      'data-sources sort-item'
+      'articles articles';
+  }
+  .sort-item {
+    flex-direction: row;
+    width: 100%;
+  }
 }

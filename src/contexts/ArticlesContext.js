@@ -64,7 +64,7 @@ export const ArticlesProvider = ({ children }) => {
       setArticlesOfFashion,
     ]
   )
-  console.log(value)
+
   return (
     <ArticlesContext.Provider value={value}>
       {children}

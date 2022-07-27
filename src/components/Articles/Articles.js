@@ -36,7 +36,7 @@ export const Articles = () => {
                 <h4 style={{ marginTop: '0' }}>{title}</h4>
                 <time>{date}</time>
               </div>
-              <div style={{ width: '90%', maxHeight: '90%' }}>
+              <div className='preamble'>
                 <p>{preamble}</p>
               </div>
             </div>
@@ -65,7 +65,7 @@ export const Articles = () => {
                 <h4 style={{ marginTop: '0' }}>{title}</h4>
                 <time>{date}</time>
               </div>
-              <div style={{ width: '90%', maxHeight: '90%' }}>
+              <div className='preamble'>
                 <p>{preamble}</p>
               </div>
             </div>
