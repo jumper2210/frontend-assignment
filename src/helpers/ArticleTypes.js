@@ -1,4 +1,4 @@
 export const articleTypes = {
-  Fashion: 'Fashion',
-  Sports: 'Sports',
+  Fashion: 'fashion',
+  Sports: 'sport',
 }

@@ -6,6 +6,7 @@ import React, {
   useCallback,
 } from 'react'
 import http from '../http'
+import { articleTypes } from '../helpers/ArticleTypes'
 
 const ArticlesContext = createContext()
 
@@ -14,55 +15,71 @@ export const useArticlesContext = () => {
 }
 
 export const ArticlesProvider = ({ children }) => {
-  const [articlesOfSport, setArticlesOfSport] = useState()
-  const [articlesOfFashion, setArticlesOfFashion] = useState()
+  const { Fashion, Sports } = articleTypes
+  const [sortedArticles, setSortedArticles] = useState([])
 
-  const setArticlesContent = (data) => {
+  const removeArticle = useCallback(
+    (type) => {
+      const updatedArticlesArray = sortedArticles.filter(
+        (article) => article.category !== type
+      )
+
+      setSortedArticles(updatedArticlesArray)
+    },
+    [sortedArticles]
+  )
+
+  const sortArticlesHandler = useCallback(() => {
+    const articlesCopy = [...sortedArticles]
+    articlesCopy.sort((a, b) =>
+      Date.parse(a.date) && Date.parse(b.date)
+        ? new Date(b.date).getTime() - new Date(a.date).getTime()
+        : Date.parse(a.date)
+        ? -1
+        : 0
+    )
+    setSortedArticles(articlesCopy)
+  }, [sortedArticles])
+
+  const getArticlesContent = (data) => {
     const shouldGetSportContent = data.some(
       (article) => article.category === 'sport'
     )
 
-    if (shouldGetSportContent) setArticlesOfSport(data)
-    else if (!shouldGetSportContent) setArticlesOfFashion(data)
+    if (shouldGetSportContent) {
+      setSortedArticles((prevState) => [...prevState, ...data])
+    } else if (!shouldGetSportContent) {
+      setSortedArticles((prevState) => [...prevState, ...data])
+    }
   }
 
-  const fetchArticlesOfSport = useCallback(async () => {
-    try {
-      const response = await http.get(`/articles/sports`)
-      const { articles } = response?.data
-      setArticlesContent(articles)
-    } catch (err) {
-      console.log(err)
-    }
-  }, [])
-
-  const fetchArticlesOfFashion = useCallback(async () => {
-    try {
-      const response = await http.get(`/articles/fashion`)
-      const { articles } = response?.data
-      setArticlesContent(articles)
-    } catch (err) {
-      console.log(err)
-    }
-  }, [])
+  const fetchArticles = useCallback(
+    async (name) => {
+      try {
+        if (name === Sports) {
+          const response = await http.get(`/articles/sports`)
+          const { articles } = response?.data
+          getArticlesContent(articles)
+        } else if (name === Fashion) {
+          const response = await http.get(`/articles/fashion`)
+          const { articles } = response?.data
+          getArticlesContent(articles)
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    [Fashion, Sports]
+  )
 
   const value = useMemo(
     () => ({
-      articlesOfSport,
-      articlesOfFashion,
-      fetchArticlesOfFashion,
-      fetchArticlesOfSport,
-      setArticlesOfSport,
-      setArticlesOfFashion,
+      fetchArticles,
+      removeArticle,
+      sortedArticles,
+      sortArticlesHandler,
     }),
-    [
-      articlesOfSport,
-      articlesOfFashion,
-      fetchArticlesOfFashion,
-      fetchArticlesOfSport,
-      setArticlesOfSport,
-      setArticlesOfFashion,
-    ]
+    [fetchArticles, removeArticle, sortedArticles, sortArticlesHandler]
   )
 
   return (

@@ -6,24 +6,20 @@ import { useArticlesContext } from '../../contexts/ArticlesContext'
 import { articleTypes } from '../../helpers/ArticleTypes'
 
 export const CheckboxLabels = () => {
-  const {
-    fetchArticlesOfSport,
-    fetchArticlesOfFashion,
-    setArticlesOfSport,
-    setArticlesOfFashion,
-  } = useArticlesContext()
+  const { fetchArticles, removeArticle } = useArticlesContext()
+
   const { Fashion, Sports } = articleTypes
 
   const onChangeHandler = (isChecked, name) => {
     if (isChecked === true && name === Fashion) {
-      fetchArticlesOfFashion()
+      fetchArticles(name)
     } else if (isChecked === true && name === Sports) {
-      fetchArticlesOfSport()
+      fetchArticles(name)
     }
     if (isChecked === false && name === Sports) {
-      setArticlesOfSport([])
+      removeArticle(name)
     } else if (isChecked === false && name === Fashion) {
-      setArticlesOfFashion([])
+      removeArticle(name)
     }
   }
 
