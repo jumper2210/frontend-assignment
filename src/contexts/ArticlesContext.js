@@ -1,7 +1,6 @@
 import React, {
   createContext,
   useContext,
-  useEffect,
   useState,
   useMemo,
   useCallback,
@@ -15,27 +14,66 @@ export const useArticlesContext = () => {
 }
 
 export const ArticlesProvider = ({ children }) => {
-  const [articles, setArticles] = useState()
+  const [articlesOfSport, setArticlesOfSport] = useState()
+  const [articlesOfFashion, setArticlesOfFashion] = useState()
 
-  const fetchArticles = useCallback(async () => {
+  const removeArticle = useCallback((type) => {
+    if (type === 'Fashion') {
+      setArticlesOfFashion([])
+    } else if (type === 'Sports') {
+      setArticlesOfSport([])
+    }
+  }, [])
+
+  const setArticlesContent = (data) => {
+    const shouldGetSportContent = data.some(
+      (article) => article.category === 'sport'
+    )
+
+    if (shouldGetSportContent && !articlesOfSport) setArticlesOfSport(data)
+    else if (!shouldGetSportContent && !articlesOfFashion)
+      setArticlesOfFashion(data)
+  }
+
+  const fetchArticlesOfSport = useCallback(async () => {
     try {
       const response = await http.get(`/articles/sports`)
       const { articles } = response?.data
-      setArticles(articles)
+      setArticlesContent(articles)
     } catch (err) {
       console.log(err)
     }
   }, [])
 
-  useEffect(() => {
-    fetchArticles()
-  }, [fetchArticles])
+  const fetchArticlesOfFashion = useCallback(async () => {
+    try {
+      const response = await http.get(`/articles/fashion`)
+      const { articles } = response?.data
+      setArticlesContent(articles)
+    } catch (err) {
+      console.log(err)
+    }
+  }, [])
 
   const value = useMemo(
     () => ({
-      articles,
+      articlesOfSport,
+      articlesOfFashion,
+      fetchArticlesOfFashion,
+      fetchArticlesOfSport,
+      removeArticle,
+      setArticlesOfSport,
+      setArticlesOfFashion,
     }),
-    [articles]
+    [
+      articlesOfSport,
+      articlesOfFashion,
+      fetchArticlesOfFashion,
+      fetchArticlesOfSport,
+      removeArticle,
+      setArticlesOfSport,
+      setArticlesOfFashion,
+    ]
   )
 
   return (
