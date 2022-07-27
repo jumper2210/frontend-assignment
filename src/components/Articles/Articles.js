@@ -8,6 +8,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css'
 export const Articles = () => {
   const { articles } = useArticlesContext()
 
+  // Here it can be improved layout of no articles existing.
   return (
     <>
       {!articles && <p>Pick your favorite article!</p>}

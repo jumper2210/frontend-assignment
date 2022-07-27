@@ -11,11 +11,13 @@ export const CheckboxLabels = () => {
   const { Fashion, Sports } = articleTypes
 
   const onChangeHandler = (isChecked, name) => {
+    // fetch picked article type if user checked checkbox
     if (isChecked === true && name === Fashion) {
       fetchArticles(name)
     } else if (isChecked === true && name === Sports) {
       fetchArticles(name)
     }
+    // delete picked articles if user checked checkbox
     if (isChecked === false && name === Sports) {
       removeArticle(name)
     } else if (isChecked === false && name === Fashion) {

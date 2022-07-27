@@ -20,6 +20,7 @@ export const ArticlesProvider = ({ children }) => {
 
   const removeArticles = useCallback(
     (type) => {
+      // look for articles that have different picked type
       const updatedArticlesArray = articles.filter(
         (article) => article.category !== type
       )
@@ -30,18 +31,22 @@ export const ArticlesProvider = ({ children }) => {
   )
 
   const sortArticlesHandler = useCallback(() => {
+    // make a copy of articles for sorting
     const articlesCopy = [...articles]
     articlesCopy.sort((a, b) =>
+      // handle invalid date from backend and compare each element to sort
       Date.parse(a.date) && Date.parse(b.date)
         ? new Date(b.date).getTime() - new Date(a.date).getTime()
         : Date.parse(a.date)
         ? -1
         : 0
     )
+    // update current existing artciles with sorted date
     setArticles(articlesCopy)
   }, [articles])
 
   const getArticlesContent = (data) => {
+    // it can be improved by adding function which accepts category as an argument. (For more types of articles)
     const shouldGetSportContent = data.some(
       (article) => article.category === 'sport'
     )
@@ -66,6 +71,7 @@ export const ArticlesProvider = ({ children }) => {
           getArticlesContent(articles)
         }
       } catch (err) {
+        // lots of ways to improve error handling. (Depending on the needs of the user/client) e.g. simply alerting
         console.log(err)
       }
     },
