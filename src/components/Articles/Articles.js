@@ -6,13 +6,13 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css'
 
 export const Articles = () => {
-  const { sortedArticles } = useArticlesContext()
+  const { articles } = useArticlesContext()
 
   return (
     <>
-      {!sortedArticles && <p>Pick your favorite article!</p>}
-      {sortedArticles &&
-        sortedArticles.map(({ date, id, image, preamble, title }) => (
+      {!articles && <p>Pick your favorite article!</p>}
+      {articles &&
+        articles.map(({ date, id, image, preamble, title }) => (
           <article className='article' key={id}>
             <div className='article-img'>
               {image ? (

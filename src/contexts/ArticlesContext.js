@@ -16,21 +16,21 @@ export const useArticlesContext = () => {
 
 export const ArticlesProvider = ({ children }) => {
   const { Fashion, Sports } = articleTypes
-  const [sortedArticles, setSortedArticles] = useState([])
+  const [articles, setArticles] = useState([])
 
-  const removeArticle = useCallback(
+  const removeArticles = useCallback(
     (type) => {
-      const updatedArticlesArray = sortedArticles.filter(
+      const updatedArticlesArray = articles.filter(
         (article) => article.category !== type
       )
 
-      setSortedArticles(updatedArticlesArray)
+      setArticles(updatedArticlesArray)
     },
-    [sortedArticles]
+    [articles]
   )
 
   const sortArticlesHandler = useCallback(() => {
-    const articlesCopy = [...sortedArticles]
+    const articlesCopy = [...articles]
     articlesCopy.sort((a, b) =>
       Date.parse(a.date) && Date.parse(b.date)
         ? new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -38,8 +38,8 @@ export const ArticlesProvider = ({ children }) => {
         ? -1
         : 0
     )
-    setSortedArticles(articlesCopy)
-  }, [sortedArticles])
+    setArticles(articlesCopy)
+  }, [articles])
 
   const getArticlesContent = (data) => {
     const shouldGetSportContent = data.some(
@@ -47,9 +47,9 @@ export const ArticlesProvider = ({ children }) => {
     )
 
     if (shouldGetSportContent) {
-      setSortedArticles((prevState) => [...prevState, ...data])
+      setArticles((prevState) => [...prevState, ...data])
     } else if (!shouldGetSportContent) {
-      setSortedArticles((prevState) => [...prevState, ...data])
+      setArticles((prevState) => [...prevState, ...data])
     }
   }
 
@@ -75,11 +75,11 @@ export const ArticlesProvider = ({ children }) => {
   const value = useMemo(
     () => ({
       fetchArticles,
-      removeArticle,
-      sortedArticles,
+      removeArticles,
+      articles,
       sortArticlesHandler,
     }),
-    [fetchArticles, removeArticle, sortedArticles, sortArticlesHandler]
+    [fetchArticles, removeArticles, articles, sortArticlesHandler]
   )
 
   return (
