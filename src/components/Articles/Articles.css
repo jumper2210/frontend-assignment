@@ -13,7 +13,6 @@
 .description-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   width: 70%;
 }
 
@@ -33,5 +32,11 @@
   }
   .title-block {
     flex-direction: column;
+  }
+  .article {
+    padding-right: 0px;
+  }
+  .title-block {
+    font-size: 10px;
   }
 }

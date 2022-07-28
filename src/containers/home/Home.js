@@ -12,16 +12,26 @@ export const Home = () => {
     <main className='home'>
       <div className='container'>
         <div className='sort-item'>
-          <p
-            style={{ coursor: 'pointer' }}
+          <span
+            style={{
+              coursor: 'pointer',
+              textDecoration: 'underline',
+              paddingRight: '5px',
+            }}
             onClick={() => sortArticlesHandler()}
           >
             Sort by date
-          </p>
+          </span>
           <SortIcon />
         </div>
         <div className='data-sources'>
-          <span>Data sources</span>
+          <span
+            style={{
+              textDecoration: 'underline',
+            }}
+          >
+            Data sources
+          </span>
           <div>
             <CheckboxLabels />
           </div>

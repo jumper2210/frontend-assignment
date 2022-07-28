@@ -9,7 +9,8 @@ export const CheckboxLabels = () => {
   const { fetchArticles, removeArticles } = useArticlesContext()
 
   const { Fashion, Sports } = articleTypes
-
+  // labels can be streamlined to listen for whether data came with an error from the server.
+  // labels should then be automatically set to non checked
   const onChangeHandler = (isChecked, name) => {
     // fetch picked article type if user checked checkbox
     if (isChecked === true && name === Fashion) {
