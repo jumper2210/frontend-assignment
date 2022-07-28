@@ -71,8 +71,9 @@ export const ArticlesProvider = ({ children }) => {
           getArticlesContent(articles)
         }
       } catch (err) {
-        // lots of ways to improve error handling. (Depending on the needs of the user/client) e.g. simply alerting
-        console.log(err)
+        window.alert(`${err.response.data.message}. Please try again ..`)
+        // lots of ways to improve error handling. (I believe its depending on the needs of the user/client)
+        // e.g MuiAlert looks amaizing. (https://mui.com/material-ui/react-snackbar/?fbclid=IwAR0PQVZwlzt8EWkw3cLMw-_Qjk3afaeY9c0yk2JJ8tdbqzmJm8w3KfiIPp4)
       }
     },
     [Fashion, Sports]
